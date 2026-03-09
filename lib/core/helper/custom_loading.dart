@@ -31,20 +31,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-Widget customShimmerLoading() {
-  return SizedBox(
-    width: 200.0,
-    height: 100.0,
-    child: Shimmer.fromColors(
-      baseColor: AppColors.kSecondaryColorGrey,
-      highlightColor: AppColors.kPrimaryColorBlue,
-      child: Container(
-        height: 100,
-        width: double.infinity,
-        color: Colors.white, // The color of the placeholder shape
-      ),
+Widget customLoading() {
+  return Center(
+    child: LoadingAnimationWidget.inkDrop(
+      color: AppColors.kPrimaryColor,
+      size: 100,
     ),
   );
 }

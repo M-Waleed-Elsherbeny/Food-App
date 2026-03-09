@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_app/core/helper/custom_loading.dart';
 import 'package:food_app/features/home/data/cubit/home_cubit.dart';
 import 'package:food_app/features/home/data/cubit/home_state.dart';
 import 'package:food_app/features/home/data/repo/home_repo.dart';
@@ -19,7 +20,7 @@ class HomeView extends StatelessWidget {
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               return state is GetCategoriesLoadingState
-                  ? CustomCategoriesCard(isLoading: true)
+                  ? customLoading()
                   : state is GetCategoriesSuccessState &&
                         state.categories.isNotEmpty
                   ? GridView.builder(

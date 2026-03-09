@@ -14,7 +14,7 @@ class AppAssets {
 
   // images
   // static const String onboardingDocImage = "$imagesPath/onboarding_doctor.png";
-  // static const String recommendedDocImage = "$imagesPath/doctor.png";
+  static const String foodLogo = "$imagesPath/food_logo.png";
   // static const String homeBackgroundBlueDoctor =
   //     "$imagesPath/home_background_blue.png";
   // static const String homeDoctor = "$imagesPath/home_doctor.png";

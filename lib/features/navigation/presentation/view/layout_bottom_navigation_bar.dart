@@ -1,5 +1,5 @@
-  import 'package:flutter/material.dart';
-  import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
 import 'package:food_app/features/navigation/data/cubit/navigation_cubit.dart';
 import 'package:food_app/features/navigation/data/cubit/navigation_state.dart';
@@ -19,10 +19,10 @@ class LayoutBottomNavigationBar extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: AppColors.kPrimaryColorBlue,
+              color: AppColors.kPrimaryColor,
               boxShadow: [
                 const BoxShadow(
-                  color: AppColors.kPrimaryColorBlue,
+                  color: AppColors.kPrimaryColor,
                   blurRadius: 10,
                   offset: Offset(0, 4),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
+import 'package:food_app/core/style/fonts/app_text_style.dart';
 import 'package:food_app/core/widgets/custom_text.dart';
 
 class MyCustomButton extends StatelessWidget {
@@ -25,14 +26,14 @@ class MyCustomButton extends StatelessWidget {
     return MaterialButton(
       minWidth: width ?? double.infinity,
       height: height ?? 52,
-      color: color ?? AppColors.kPrimaryColorBlue,
+      color: color ?? AppColors.kPrimaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       onPressed: onPressed ?? () {},
       child:
           child ??
           CustomText(
             title: text ?? "Type text here",
-            // style: style ?? AppTextStyle.font18White600,
+            style: style ?? AppTextStyle.font18White600,
           ),
     );
   }
