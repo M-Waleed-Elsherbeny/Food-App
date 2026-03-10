@@ -37,28 +37,37 @@ class AppTextStyle {
     color: AppColors.kScaffoldBackgroundColor,
     fontSize: 16,
     fontWeight: FontWeight.normal,
+    overflow: TextOverflow.ellipsis,
+  );
+  static TextStyle font24WhiteBold = TextStyle(
+    color: AppColors.kScaffoldBackgroundColor,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font12WhiteBold = TextStyle(
     color: AppColors.kScaffoldBackgroundColor,
     fontSize: 14,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
-  
+
   static TextStyle font14BlackW600 = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 14,
     fontWeight: FontWeight.w600,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font16BlackWBold = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 16,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font14BlueW500Underline = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 14,
     fontWeight: FontWeight.w500,
-    decoration: TextDecoration.underline
+    decoration: TextDecoration.underline,
   );
-  
 }

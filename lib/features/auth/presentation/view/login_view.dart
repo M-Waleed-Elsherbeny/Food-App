@@ -77,6 +77,11 @@ class _LoginViewState extends State<LoginView> {
                   if (state is AuthErrorState) {
                     customSnackBar(context, "Error in Email or Password");
                   } else if (state is AuthSuccessState) {
+                    customSnackBar(
+                      context,
+                      "Login Successfully",
+                      backgroundColor: AppColors.kSuccessColor,
+                    );
                     Navigator.pushReplacementNamed(
                       context,
                       AppRoutePath.layoutBottomNavigationBar,

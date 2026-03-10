@@ -90,6 +90,11 @@ class _LoginViewState extends State<SignUpView> {
                   if (state is AuthErrorState) {
                     customSnackBar(context, state.errMsg);
                   } else if (state is AuthSuccessState) {
+                    customSnackBar(
+                      context,
+                      "Created Successfully",
+                      backgroundColor: AppColors.kSuccessColor,
+                    );
                     Navigator.pushReplacementNamed(
                       context,
                       AppRoutePath.loginView,

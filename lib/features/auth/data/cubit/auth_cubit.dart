@@ -13,6 +13,7 @@ class AuthCubit extends Cubit<AuthState> {
       (l) => emit(AuthErrorState(errMsg: l)),
       (r) => emit(AuthSuccessState()),
     );
+    
   }
 
   Future<void> signUp({required String email, required String password}) async {

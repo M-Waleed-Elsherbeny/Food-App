@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/helper/custom_loading.dart';
+import 'package:food_app/core/routes/app_route_path.dart';
+import 'package:food_app/core/style/colors/app_colors.dart';
+import 'package:food_app/core/style/fonts/app_text_style.dart';
 import 'package:food_app/features/home/data/cubit/home_cubit.dart';
 import 'package:food_app/features/home/data/cubit/home_state.dart';
 import 'package:food_app/features/home/data/repo/home_repo.dart';
@@ -16,6 +19,13 @@ class HomeView extends StatelessWidget {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(HomeRepo())..getCategories(),
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.kPrimaryColor,
+          title: Text("All Categories", style: AppTextStyle.font24WhiteBold),
+          centerTitle: true,
+          leading: SizedBox.shrink(),
+          surfaceTintColor: AppColors.kPrimaryColor,
+        ),
         body: SafeArea(
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
@@ -37,9 +47,18 @@ class HomeView extends StatelessWidget {
                       ),
                       itemBuilder: (context, index) {
                         final category = state.categories[index];
-                        return CustomCategoriesCard(
-                          image: category.image,
-                          title: category.name,
+                        return GestureDetector(
+                          onTap: () {                            
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutePath.mealsView,
+                              arguments: category
+                            );
+                          },
+                          child: CustomCategoriesCard(
+                            image: category.image,
+                            title: category.name,
+                          ),
                         );
                       },
                     )

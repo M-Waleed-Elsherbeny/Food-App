@@ -14,4 +14,21 @@ class HomeCubit extends Cubit<HomeState> {
       (categories) => emit(GetCategoriesSuccessState(categories)),
     );
   }
+
+  Future<void> getMeals({required String catTitle}) async {
+    emit(GetMealsLoadingState());
+    final response = await homeRepo.getMeals(catTitle: catTitle);
+    response.fold(
+      (error) => emit(GetMealsErrorState(error)),
+      (meals) => emit(GetMealsSuccessState(meals)),
+    );
+  }
+  Future<void> getMealDetails({required String id}) async {
+    emit(GetMealsDetailsLoadingState());
+    final response = await homeRepo.getMealsDetails(id: id);
+    response.fold(
+      (error) => emit(GetMealsDetailsErrorState(error)),
+      (meals) => emit(GetMealsDetailsSuccessState(meals)),
+    );
+  }
 }

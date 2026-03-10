@@ -29,7 +29,10 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins",
       ),
       onGenerateRoute: AppRouteConfig().onGenerateRoute,
-      initialRoute: AppRoutePath.loginView,
+      initialRoute: AppRoutePath.layoutBottomNavigationBar,
     );
   }
+
+  // m@gmail.com
+  // 12345678
 }
