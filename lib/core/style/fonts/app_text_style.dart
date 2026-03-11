@@ -64,6 +64,12 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
     overflow: TextOverflow.ellipsis,
   );
+  static TextStyle font24BlackW700 = TextStyle(
+    color: AppColors.kDarkBlue,
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    overflow: TextOverflow.ellipsis,
+  );
   static TextStyle font14BlueW500Underline = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 14,
