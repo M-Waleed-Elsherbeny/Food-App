@@ -5,6 +5,10 @@ import 'package:food_app/core/routes/app_route_config.dart';
 import 'package:food_app/core/routes/app_route_path.dart';
 import 'package:food_app/core/services/bloc_observer.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
+import 'package:hive/hive.dart';
+
+Box? box;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +33,11 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins",
       ),
       onGenerateRoute: AppRouteConfig().onGenerateRoute,
-      initialRoute: AppRoutePath.layoutBottomNavigationBar,
+      initialRoute: AppRoutePath.loginView,
     );
   }
 
   // m@gmail.com
+  // w@gmail.com
   // 12345678
 }

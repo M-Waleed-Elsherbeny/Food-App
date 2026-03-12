@@ -13,12 +13,46 @@ class AuthCubit extends Cubit<AuthState> {
       (l) => emit(AuthErrorState(errMsg: l)),
       (r) => emit(AuthSuccessState()),
     );
-    
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     emit(AuthLoadingState());
-    final res = await authRepo.signUp(email: email, password: password);
+    final res = await authRepo.signUp(
+      name: name,
+      email: email,
+      password: password,
+    );
+    res.fold(
+      (l) => emit(AuthErrorState(errMsg: l)),
+      (r) => emit(AuthSuccessState()),
+    );
+  }
+
+  Future<void> logout() async {
+    emit(AuthLoadingState());
+    final res = await authRepo.logout();
+    res.fold(
+      (l) => emit(AuthErrorState(errMsg: l)),
+      (r) => emit(AuthSuccessState()),
+    );
+  }
+
+  Future<void> saveUser({required String name, required String email}) async {
+    emit(AuthLoadingState());
+    final res = await authRepo.saveUser(name: name, email: email);
+    res.fold(
+      (l) => emit(AuthErrorState(errMsg: l)),
+      (r) => emit(AuthSuccessState()),
+    );
+  }
+
+  Future<void> getUser() async {
+    emit(AuthLoadingState());
+    final res = await authRepo.getUser();
     res.fold(
       (l) => emit(AuthErrorState(errMsg: l)),
       (r) => emit(AuthSuccessState()),

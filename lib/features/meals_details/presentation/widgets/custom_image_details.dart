@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
 
 class CustomImageDetails extends StatelessWidget {
-  const CustomImageDetails({super.key, required this.imageUrl});
+  const CustomImageDetails({
+    super.key,
+    required this.imageUrl,
+    this.onFavoritePressed,
+    this.isFavorite = false,
+  });
   final String imageUrl;
+  final VoidCallback? onFavoritePressed;
+  final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +66,11 @@ class CustomImageDetails extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: IconButton(
-              onPressed: () {},
+              onPressed: onFavoritePressed,
               icon: Icon(
-                Icons.favorite_border_outlined,
+                isFavorite
+                    ? Icons.favorite_outlined
+                    : Icons.favorite_border_outlined,
                 color: AppColors.kErrorColor,
               ),
             ),

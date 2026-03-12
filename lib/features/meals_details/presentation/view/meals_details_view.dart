@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/helper/custom_loading.dart';
 import 'package:food_app/core/helper/spacer.dart';
+import 'package:food_app/core/services/hive_services.dart';
 import 'package:food_app/core/style/fonts/app_text_style.dart';
 import 'package:food_app/core/widgets/custom_text.dart';
 import 'package:food_app/features/home/data/cubit/home_cubit.dart';
@@ -11,6 +14,7 @@ import 'package:food_app/features/meals_details/presentation/widgets/custom_area
 import 'package:food_app/features/meals_details/presentation/widgets/custom_image_details.dart';
 import 'package:food_app/features/meals_details/presentation/widgets/custom_ingredients_and_measures.dart';
 import 'package:food_app/features/meals_details/presentation/widgets/custom_title_details.dart';
+import 'package:food_app/main.dart';
 
 class MealsDetailsView extends StatefulWidget {
   const MealsDetailsView({super.key});
@@ -21,6 +25,17 @@ class MealsDetailsView extends StatefulWidget {
 
 class _MealsDetailsViewState extends State<MealsDetailsView> {
   late MealsDetailsModel meals;
+  bool isFavorite = false;
+  openBox() async {
+    box = await HiveServices.openHiveBox(HiveServices.favoriteBox);
+  }
+
+  @override
+  void initState() {
+    openBox();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.sizeOf(context).width;
@@ -43,7 +58,29 @@ class _MealsDetailsViewState extends State<MealsDetailsView> {
                   ? SingleChildScrollView(
                       child: Column(
                         children: [
-                          CustomImageDetails(imageUrl: meals.image),
+                          CustomImageDetails(
+                            imageUrl: meals.image,
+                            isFavorite: isFavorite,
+                            onFavoritePressed: () async {
+                              setState(() {
+                                isFavorite = !isFavorite;
+                              });
+                              await box!.put(HiveServices.favoriteBoxId, [
+                                {
+                                  HiveServices.favoriteBoxImage: meals.image,
+                                  HiveServices.favoriteBoxCategory:
+                                      meals.category,
+                                  HiveServices.favoriteBoxArea: meals.area,
+                                },
+                              ]);
+                              log(
+                                box!.get(HiveServices.favoriteBoxId).toString(),
+                              );
+                              log(
+                                box!.get(HiveServices.favoriteBox).toString(),
+                              );
+                            },
+                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: deviceWidth * 0.03,

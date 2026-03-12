@@ -117,7 +117,6 @@ class _LoginViewState extends State<SignUpView> {
                                     if (value == null || value.isEmpty) {
                                       return "Email can't be empty";
                                     }
-
                                     return null;
                                   },
                                   labelText: "Enter your Name",
@@ -211,21 +210,15 @@ class _LoginViewState extends State<SignUpView> {
                                     },
                                   ),
                                 ),
-                                heightSpace(deviceHeight * 0.01),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: CustomText(
-                                    title: "Forgot password?",
-                                    style: AppTextStyle.font14BlueW500Underline,
-                                  ),
-                                ),
                                 heightSpace(deviceHeight * 0.03),
                                 MyCustomButton(
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (formKey.currentState!.validate()) {
-                                      context.read<AuthCubit>().signUp(
-                                        email: emailController.text,
-                                        password: passwordController.text,
+                                      await context.read<AuthCubit>().signUp(
+                                        name: nameController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        password: passwordController.text
+                                            .trim(),
                                       );
                                     }
                                   },
@@ -236,7 +229,7 @@ class _LoginViewState extends State<SignUpView> {
                                 const LoginWithSocialMedia(),
                                 heightSpace(deviceHeight * 0.03),
                                 const HaveAccountOrNot(isLogin: false),
-                                heightSpace(deviceHeight * 0.01),
+                                heightSpace(deviceHeight * 0.05),
                               ],
                             ),
                           ),

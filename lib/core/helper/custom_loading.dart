@@ -37,7 +37,7 @@ Widget customLoading() {
   return Center(
     child: LoadingAnimationWidget.inkDrop(
       color: AppColors.kPrimaryColor,
-      size: 100,
+      size: 50,
     ),
   );
 }
