@@ -59,51 +59,61 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Card(
-                      elevation: 20,
-                      shadowColor: AppColors.kPrimaryLightColor,
-                      color: AppColors.kScaffoldBackgroundColor,
-                      child: Column(
-                        children: [
-                          CustomProfileDetails(title: "name"),
-
-                          CustomProfileDetails(
-                            title: "email",
-                            icon: Icons.email,
-                          ),
-                        ],
-                      ),
-                    ),
-                    heightSpace(deviceHeight * 0.1),
-                    BlocConsumer<AuthCubit, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthErrorState) {
-                          customSnackBar(context, state.errMsg);
-                        }
-                        if (state is AuthSuccessState) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            AppRoutePath.loginView,
+                child: BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is AuthErrorState) {
+                      customSnackBar(context, state.errMsg);
+                    } else if (state is GetUserErrorState) {
+                      customSnackBar(context, state.errMsg);
+                    }
+                    if (state is AuthSuccessState) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        AppRoutePath.loginView,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return state is GetUserLoadingState
+                        ? customLoading()
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Card(
+                                elevation: 20,
+                                shadowColor: AppColors.kPrimaryLightColor,
+                                color: AppColors.kScaffoldBackgroundColor,
+                                child: Column(
+                                  children: [
+                                    CustomProfileDetails(
+                                      title: state is GetUserSuccessState
+                                          ? state.name
+                                          : "name",
+                                    ),
+                                    CustomProfileDetails(
+                                      title: state is GetUserSuccessState
+                                          ? state.email
+                                          : "email",
+                                      icon: Icons.email,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              heightSpace(deviceHeight * 0.1),
+                              state is AuthLoadingState
+                                  ? customLoading()
+                                  : MyCustomButton(
+                                      onPressed: () async {
+                                        await context
+                                            .read<AuthCubit>()
+                                            .logout();
+                                      },
+                                      text: "Logout",
+                                    ),
+                            ],
                           );
-                        }
-                      },
-                      builder: (context, state) {
-                        return state is AuthLoadingState
-                            ? customLoading()
-                            : MyCustomButton(
-                                onPressed: () async {
-                                  await context.read<AuthCubit>().logout();
-                                },
-
-                                text: "Logout",
-                              );
-                      },
-                    ),
-                  ],
+                  },
                 ),
               ),
             ),

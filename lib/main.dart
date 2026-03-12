@@ -4,16 +4,20 @@ import 'package:food_app/core/networking/supabase_services.dart';
 import 'package:food_app/core/routes/app_route_config.dart';
 import 'package:food_app/core/routes/app_route_path.dart';
 import 'package:food_app/core/services/bloc_observer.dart';
+import 'package:food_app/core/services/hive_services.dart';
 import 'package:food_app/core/style/colors/app_colors.dart';
-import 'package:hive/hive.dart';
-
-Box? box;
-
+import 'package:food_app/features/favorite/data/model/favorite_food_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseServices.initSupabase();
   Bloc.observer = MyBlocObserver();
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(FavoriteFoodModelAdapter());
+
+  await HiveServices.openHiveBox(HiveServices.favoriteBox);
   runApp(const MyApp());
 }
 

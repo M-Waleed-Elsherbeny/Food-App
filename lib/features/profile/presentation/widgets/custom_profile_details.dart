@@ -19,7 +19,7 @@ class CustomProfileDetails extends StatelessWidget {
       ),
       leading: Icon(
         icon ?? Icons.person,
-        size: 40,
+        size: 25,
         color: AppColors.kPrimaryColor,
       ),
       title: CustomText(title: title, style: AppTextStyle.font16BlackWBold),

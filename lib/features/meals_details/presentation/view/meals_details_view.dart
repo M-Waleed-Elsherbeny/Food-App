@@ -1,12 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/core/helper/custom_loading.dart';
+import 'package:food_app/core/helper/custom_snack_bar.dart';
 import 'package:food_app/core/helper/spacer.dart';
 import 'package:food_app/core/services/hive_services.dart';
+import 'package:food_app/core/style/colors/app_colors.dart';
 import 'package:food_app/core/style/fonts/app_text_style.dart';
 import 'package:food_app/core/widgets/custom_text.dart';
+import 'package:food_app/features/favorite/data/model/favorite_food_model.dart';
 import 'package:food_app/features/home/data/cubit/home_cubit.dart';
 import 'package:food_app/features/home/data/cubit/home_state.dart';
 import 'package:food_app/features/meals_details/data/model/meals_details_model.dart';
@@ -14,7 +15,7 @@ import 'package:food_app/features/meals_details/presentation/widgets/custom_area
 import 'package:food_app/features/meals_details/presentation/widgets/custom_image_details.dart';
 import 'package:food_app/features/meals_details/presentation/widgets/custom_ingredients_and_measures.dart';
 import 'package:food_app/features/meals_details/presentation/widgets/custom_title_details.dart';
-import 'package:food_app/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MealsDetailsView extends StatefulWidget {
   const MealsDetailsView({super.key});
@@ -25,16 +26,8 @@ class MealsDetailsView extends StatefulWidget {
 
 class _MealsDetailsViewState extends State<MealsDetailsView> {
   late MealsDetailsModel meals;
-  bool isFavorite = false;
-  openBox() async {
-    box = await HiveServices.openHiveBox(HiveServices.favoriteBox);
-  }
-
-  @override
-  void initState() {
-    openBox();
-    super.initState();
-  }
+  late bool isFavorite;
+  String userId = Supabase.instance.client.auth.currentUser!.id;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +41,7 @@ class _MealsDetailsViewState extends State<MealsDetailsView> {
             listener: (context, state) {
               if (state is GetMealsDetailsSuccessState) {
                 meals = state.meals.first;
+                isFavorite = HiveServices.isFavorite(userId, meals.id);
               }
             },
             builder: (context, state) {
@@ -62,23 +56,33 @@ class _MealsDetailsViewState extends State<MealsDetailsView> {
                             imageUrl: meals.image,
                             isFavorite: isFavorite,
                             onFavoritePressed: () async {
+                              isFavorite ?
+                                  await HiveServices.removeFavorite(
+                                    userId,
+                                    meals.id,
+                                  ).then((_) {
+                                    customSnackBar(
+                                      context,
+                                      "Deleted Successfully",
+                                      backgroundColor: AppColors.kSuccessColor,
+                                    );
+                                    setState(() {});
+                                  }):
+                                
+                              await HiveServices.addFavorite(
+                                userId,
+                                FavoriteFoodModel(
+                                  id: meals.id,
+                                  name: meals.title,
+                                  image: meals.image,
+                                  area: meals.area,
+                                  category: meals.category,
+                                ),
+                              );
+
                               setState(() {
                                 isFavorite = !isFavorite;
                               });
-                              await box!.put(HiveServices.favoriteBoxId, [
-                                {
-                                  HiveServices.favoriteBoxImage: meals.image,
-                                  HiveServices.favoriteBoxCategory:
-                                      meals.category,
-                                  HiveServices.favoriteBoxArea: meals.area,
-                                },
-                              ]);
-                              log(
-                                box!.get(HiveServices.favoriteBoxId).toString(),
-                              );
-                              log(
-                                box!.get(HiveServices.favoriteBox).toString(),
-                              );
                             },
                           ),
                           Padding(

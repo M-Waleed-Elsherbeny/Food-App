@@ -38,9 +38,11 @@ class CustomIngredientsAndMeasures extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
                 widthSpace(deviceWidth * 0.02),
-                CustomText(
-                  title: "$measure $ingredient",
-                  style: AppTextStyle.font14BlackBold,
+                Expanded(
+                  child: CustomText(
+                    title: "$measure $ingredient",
+                    style: AppTextStyle.font14BlackBold,
+                  ),
                 ),
               ],
             ),

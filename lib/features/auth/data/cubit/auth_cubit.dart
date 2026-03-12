@@ -51,11 +51,10 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> getUser() async {
-    emit(AuthLoadingState());
+    emit(GetUserLoadingState());
     final res = await authRepo.getUser();
-    res.fold(
-      (l) => emit(AuthErrorState(errMsg: l)),
-      (r) => emit(AuthSuccessState()),
-    );
+    res.fold((error) => emit(GetUserErrorState(errMsg: error)), (user) {
+      emit(GetUserSuccessState(name: user["name"], email: user["email"]));
+    });
   }
 }

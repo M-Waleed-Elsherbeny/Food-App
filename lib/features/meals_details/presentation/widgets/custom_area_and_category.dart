@@ -8,8 +8,10 @@ class CustomAreaAndCategory extends StatelessWidget {
     super.key,
     required this.area,
     required this.category,
+    this.style,
   });
   final String area, category;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CustomAreaAndCategory extends StatelessWidget {
           ),
           child: CustomText(
             title: area.toUpperCase(),
-            style: AppTextStyle.font14PrimaryBold,
+            style: style ?? AppTextStyle.font14PrimaryBold,
           ),
         ),
         Container(
@@ -42,7 +44,7 @@ class CustomAreaAndCategory extends StatelessWidget {
           ),
           child: CustomText(
             title: category.toUpperCase(),
-            style: AppTextStyle.font14PrimaryBold,
+            style: style ?? AppTextStyle.font14PrimaryBold,
           ),
         ),
       ],

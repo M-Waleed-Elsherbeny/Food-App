@@ -67,8 +67,7 @@ class AuthRepo {
     }
   }
 
-  // Future<Either<String, Map<String, dynamic>>>
-  Future getUser() async {
+  Future<Either<String, Map<String, dynamic>>> getUser() async {
     try {
       final res = await supabase
           .from("users")

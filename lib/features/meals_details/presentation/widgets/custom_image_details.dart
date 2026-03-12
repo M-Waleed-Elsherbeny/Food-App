@@ -41,13 +41,14 @@ class CustomImageDetails extends StatelessWidget {
             ),
           ),
           alignment: Alignment.center,
-          child: IconButton(
-            onPressed: () {
+          child: GestureDetector(
+            onTap: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            child: Icon(
               Icons.arrow_back_ios_new_outlined,
               color: AppColors.kPrimaryColor,
+              size: 16,
             ),
           ),
         ),
@@ -65,13 +66,14 @@ class CustomImageDetails extends StatelessWidget {
               ),
             ),
             alignment: Alignment.center,
-            child: IconButton(
-              onPressed: onFavoritePressed,
-              icon: Icon(
+            child: GestureDetector(
+              onTap: onFavoritePressed,
+              child: Icon(
                 isFavorite
                     ? Icons.favorite_outlined
                     : Icons.favorite_border_outlined,
                 color: AppColors.kErrorColor,
+                size: 16,
               ),
             ),
           ),

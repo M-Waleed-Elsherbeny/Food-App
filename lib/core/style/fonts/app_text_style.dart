@@ -6,32 +6,38 @@ class AppTextStyle {
     color: AppColors.kPrimaryColor,
     fontSize: 14,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font14WhiteBold = TextStyle(
     color: AppColors.kScaffoldBackgroundColor,
     fontSize: 14,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font30WhiteBold = TextStyle(
     color: AppColors.kScaffoldBackgroundColor,
     fontSize: 30,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font14BlackBold = TextStyle(
     color: AppColors.kDarkBlue,
     fontSize: 14,
     fontWeight: FontWeight.bold,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font16greyW400 = TextStyle(
     color: AppColors.kSecondaryColorGrey,
     fontSize: 16,
     fontWeight: FontWeight.w400,
+    overflow: TextOverflow.ellipsis,
   );
 
   static TextStyle font18White600 = TextStyle(
     color: AppColors.kScaffoldBackgroundColor,
     fontSize: 18,
     fontWeight: FontWeight.w600,
+    overflow: TextOverflow.ellipsis,
   );
   static TextStyle font16WhiteNormal = TextStyle(
     color: AppColors.kScaffoldBackgroundColor,
